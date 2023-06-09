@@ -13,20 +13,20 @@ const DetailsPage = ({deleteAnimation}) => {
     console.log(id)
     
     useEffect(() => {
-        fetch(`http://127.0.0.1:8000/${id}`)
+        fetch(`https://youanime.onrender.com/${id}`)
         .then(res => res.json())
         .then(data => setAnimations(data))
         
       }, [id])
 
       useEffect(() => {
-        fetch(`http://127.0.0.1:8000/getdirectors/`)
+        fetch(`https://youanime.onrender.com/getdirectors/`)
         .then(res => res.json())
         .then(data => setDirectors(data))    
       }, [])
 
       useEffect(() => {
-        fetch(`http://127.0.0.1:8000/getgenres/`)
+        fetch(`https://youanime.onrender.com/getgenres/`)
         .then(res => res.json())
         .then(data => setGenres(data))    
       }, [])
@@ -45,7 +45,6 @@ const DetailsPage = ({deleteAnimation}) => {
         return null
     }) 
 
-    // console.log(genres)
     const showGenres = genres.map(genre => {
         console.log(genre.id)
         if (genre.id === genres_id){

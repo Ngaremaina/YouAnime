@@ -15,23 +15,19 @@ import Movies from './components/Movies';
 function App() {
   const [animations, setAnimations] = useState([])
 
-  useEffect(() => {
-    
-    fetchData()
-   
-  
-    
+  useEffect(() => {   
+    fetchData()    
   }, []);
 
 
   const fetchData = async () => {
-    const response = await fetch("http://127.0.0.1:8000")
+    const response = await fetch("https://youanime.onrender.com/")
     const jsonData = await response.json()
     setAnimations(jsonData)
   }
 
   const addAnimation = (data) => {
-    fetch("http://127.0.0.1:8000/addanimations", {
+    fetch("https://youanime.onrender.com/addanimations", {
       method:"POST",
       headers: {"Content-Type":"application/json", "Accept":"application/json"},
       body:JSON.stringify(data)
@@ -41,7 +37,7 @@ function App() {
   }
 
   const editAnimation = (data, id) => {
-    fetch(`http://127.0.0.1:8000/patchanimations/${id}`, {
+    fetch(`https://youanime.onrender.com/patchanimations/${id}`, {
       method:"PATCH",
       headers: {"Content-Type":"application/json", "Accept":"application/json"},
       body:JSON.stringify(data)
@@ -52,7 +48,7 @@ function App() {
   }
 
   const deleteAnimation = (id) => {
-    fetch(`http://127.0.0.1:8000/deleteanimation/${id}`,{
+    fetch(`https://youanime.onrender.com/deleteanimation/${id}`,{
       method:"DELETE"
     })
     .then(res => res.json())
@@ -60,7 +56,7 @@ function App() {
   }
 
   const addCustomer = (data) => {
-    fetch("http://127.0.0.1:8000/addcustomers", {
+    fetch("https://youanime.onrender.com/addcustomers", {
       method:"POST",
       headers: {"Content-Type":"application/json", "Accept":"application/json"},
       body:JSON.stringify(data)
@@ -70,7 +66,7 @@ function App() {
 
   }
   const addDirector = (data) => {
-    fetch("http://127.0.0.1:8000/adddirectors", {
+    fetch("https://youanime.onrender.com/adddirectors", {
       method:"POST",
       headers: {"Content-Type":"application/json", "Accept":"application/json"},
       body:JSON.stringify(data)
