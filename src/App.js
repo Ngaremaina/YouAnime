@@ -16,11 +16,11 @@ function App() {
   const [animations, setAnimations] = useState([])
 
   useEffect(() => {
-    const interval = setInterval(() => {
-      fetchData()
-    }, 6000);
+    
+    fetchData()
+   
   
-    return () => clearInterval(interval);
+    
   }, []);
 
 
