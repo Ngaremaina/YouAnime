@@ -9,7 +9,7 @@ To run this application:
 *Run this command: npm start
 
 # To view the published website
-To visit this website, click on the link [here]()
+To visit this website, click on the link [here](https://youanime.netlify.app/)
 
 # Author
 Ngare Maina
