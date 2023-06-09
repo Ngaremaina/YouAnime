@@ -21,7 +21,7 @@ function App() {
 
 
   const fetchData = async () => {
-    const response = await fetch("https://youanime.onrender.com/")
+    const response = await fetch("http://127.0.0.1:8000/")
     const jsonData = await response.json()
     setAnimations(jsonData)
   }
