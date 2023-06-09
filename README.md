@@ -1,5 +1,7 @@
 # Youanime #
 YouAnime is an interactive platform that ensures the safety and well-being of children while using the platform by effectively direct kids to age-appropriate content.
+# Demo
+![home](./media/anime.gif)
 
 # Getting Started #
 To run this application:
