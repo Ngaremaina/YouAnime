@@ -2,8 +2,9 @@ import React,{useState} from "react";
 import { useNavigate, useParams } from "react-router-dom";
 
 const EditAnimation = ({editAnimation}) => {
-    const navigate = useNavigate()
+    const navigate = useNavigate()//defining the navigate function
     const {id} = useParams()
+    //Object that stores changes from user
     const [animation, setAnimation] = useState({
         title:"",
         plot:"",
@@ -14,19 +15,25 @@ const EditAnimation = ({editAnimation}) => {
         directors_id:1,
         genres_id:1
     })
+    // Function that submit form
     const handleSubmit = (event) => {
         event.preventDefault()
+        // Function to add changes to the database
         editAnimation(animation, id)
+        // navigate back to home page
         navigate(`/${id}`)
 
     }
+    // Function to handle changes in the form
     const handleChange = (event) => {
         const input = event.target.id
         const value = event.target.value
+        // Add changes to the object
         setAnimation(prev => {return {...prev, [input]:value}})
     }
 
     return (
+        // Form that adds data to the database
         <form onSubmit={handleSubmit} className="formcontainer">
             <h1>Edit Animation</h1>
             <label for="title">Animation Title</label>
@@ -38,7 +45,10 @@ const EditAnimation = ({editAnimation}) => {
             <label for="cover">Animation Cover</label>
             <input type="text" id="cover" value={animation.cover} onChange={handleChange}/>
             <label for="type">Animation Type</label>
-            <input type="text" id="type" value={animation.type} onChange={handleChange}/>
+            <select id="type" value={animation.type} onChange={handleChange}>
+                <option>Movies</option>
+                <option>Series</option>
+            </select>
             <label for="video_link">YouTube ID</label>
             <input type="text" id="video_link" value={animation.video_link} onChange={handleChange}/>
             <label for="directors_id">Directors ID</label>

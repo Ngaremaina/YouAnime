@@ -11,32 +11,32 @@ const DetailsPage = ({deleteAnimation}) => {
     const navigate = useNavigate()
     const { title, cover, video_link, plot, year, type, directors_id, genres_id } = animations
     console.log(id)
-    
+    //Fetch details about a particular item
     useEffect(() => {
         fetch(`https://youanime.onrender.com/${id}`)
         .then(res => res.json())
         .then(data => setAnimations(data))
         
       }, [id])
-
+      //fetch details about the directors
       useEffect(() => {
         fetch(`https://youanime.onrender.com/getdirectors/`)
         .then(res => res.json())
         .then(data => setDirectors(data))    
       }, [])
-
+      //fetch all the genres
       useEffect(() => {
         fetch(`https://youanime.onrender.com/getgenres/`)
         .then(res => res.json())
         .then(data => setGenres(data))    
       }, [])
     
-    
+    //Function that handles the delete
     const handleDelete = () => {
         deleteAnimation(id) 
         navigate('/')    
     }
-
+    //display the directors details
     const showDirector = directors.map(director => {
         console.log(director.id) 
         if (director.id === directors_id){
@@ -44,7 +44,7 @@ const DetailsPage = ({deleteAnimation}) => {
         }  
         return null
     }) 
-
+    //show all the genres
     const showGenres = genres.map(genre => {
         console.log(genre.id)
         if (genre.id === genres_id){
@@ -54,6 +54,7 @@ const DetailsPage = ({deleteAnimation}) => {
     })
 
     return(
+        //Details page showing all the details of an item
         <div>
             <iframe width="100%" height="500" style={{paddingBottom: "20px"}} src={`https://www.youtube.com/embed/${video_link}`} title={title} frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
             <div className="details">

@@ -2,7 +2,8 @@ import React,{useState} from "react";
 import { useNavigate } from "react-router-dom";
 
 const Login = ({addDirector}) => {
-    const navigate = useNavigate()
+    const navigate = useNavigate()//defining the navigate function
+    //Object that stores changes from user
     const [director, setdirector] = useState({
         first_name: "",
         last_name: "",
@@ -11,18 +12,24 @@ const Login = ({addDirector}) => {
         email: "",
         age: 1
     })
+    // Function that submit form
     const handleSubmit = (event) => {
         event.preventDefault()
+           // Function to add changes to the database
         addDirector(director)
+         // navigate back to home page
         navigate('/')
 
     }
+      // Function to handle changes in the form
     const handleChange = (event) => {
         const input = event.target.id
         const value = event.target.value
+         // Add changes to the object
         setdirector(prev => {return {...prev, [input]:value}})
     }
     return(
+        //Form that adds new director
         <form onSubmit={handleSubmit} className="formcontainer">
             <h1>Director Sign Up</h1>
             <label for="first_name">First Name</label>

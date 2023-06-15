@@ -3,6 +3,7 @@ import { NavLink } from "react-router-dom";
 
 const NavHeader = ({sortByTitle}) => {
     return (
+        // display the navigation links in the header
         <nav className="topnav">
 
             <NavLink to='/' className="nav-link">Home</NavLink>

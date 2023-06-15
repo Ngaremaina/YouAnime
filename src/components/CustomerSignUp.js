@@ -3,7 +3,8 @@ import { useNavigate } from "react-router-dom";
 
 
 const SignUp = ({addCustomer}) => {
-    const navigate = useNavigate()
+    const navigate = useNavigate()//defining the navigate function
+    //Object that stores changes from user
     const [customer, setCustomer] = useState({
         first_name: "",
         last_name: "",
@@ -13,8 +14,11 @@ const SignUp = ({addCustomer}) => {
         age: 1,
         password:""
     })
+
+    // Function that submit form
     const handleSubmit = (event) => {
         event.preventDefault()
+         // Function to add changes to the database
         addCustomer(customer)
         navigate('/')
 
@@ -22,9 +26,11 @@ const SignUp = ({addCustomer}) => {
     const handleChange = (event) => {
         const input = event.target.id
         const value = event.target.value
+         // Add changes to the object
         setCustomer(prev => {return {...prev, [input]:value}})
     }
     return(
+        // Form that adds data to the database
         <form onSubmit={handleSubmit} className="formcontainer">
             <h1>Customer Sign Up</h1>
             <label for="first_name">First Name</label>

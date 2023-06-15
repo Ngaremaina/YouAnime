@@ -14,18 +14,19 @@ import Movies from './components/Movies';
 
 function App() {
   const [animations, setAnimations] = useState([])
-
+  //Fetch all animations from the database
   useEffect(() => {   
     fetchData()    
   }, []);
 
-
+  //Function that fetches all animations
   const fetchData = async () => {
     const response = await fetch("https://youanime.onrender.com/")
     const jsonData = await response.json()
     setAnimations(jsonData)
   }
 
+  //Function that adds a new animation to the database
   const addAnimation = (data) => {
     fetch("https://youanime.onrender.com/addanimations", {
       method:"POST",
@@ -35,7 +36,7 @@ function App() {
     .then(res => res.json())
     .then(data => console.log(data))   
   }
-
+  //Function that patches the animation
   const editAnimation = (data, id) => {
     fetch(`https://youanime.onrender.com/patchanimations/${id}`, {
       method:"PATCH",
@@ -46,7 +47,7 @@ function App() {
     .then(data => console.log(data))   
 
   }
-
+  //Function that deletes the animation
   const deleteAnimation = (id) => {
     fetch(`https://youanime.onrender.com/deleteanimation/${id}`,{
       method:"DELETE"
@@ -54,7 +55,7 @@ function App() {
     .then(res => res.json())
     .then(data => console.log(data))
   }
-
+  //Function that adds customers to the database
   const addCustomer = (data) => {
     fetch("https://youanime.onrender.com/addcustomers", {
       method:"POST",
@@ -65,6 +66,7 @@ function App() {
     .then(data => console.log(data))   
 
   }
+   //Function that adds customers to the database
   const addDirector = (data) => {
     fetch("https://youanime.onrender.com/adddirectors", {
       method:"POST",
@@ -75,18 +77,19 @@ function App() {
     .then(data => console.log(data))   
 
   }
-
+  //Function that searches the animation by its title
   const searchAnimation = (search) => {
     const fetchResults = animations.filter(animation => animation.title.toLowerCase().includes(search.toLowerCase()))
     return setAnimations(fetchResults)
   }
-
+  //Function that sorts the animations by the title
   function sortByTitle() {
     const sortedAnimations = [...animations].sort((a, b) => a.title.localeCompare(b.title));
     setAnimations(sortedAnimations);
   }
   
   return (
+    //Display the routes to the components
     <div className="App">
       <NavHeader sortByTitle={sortByTitle}/>
       <Routes>

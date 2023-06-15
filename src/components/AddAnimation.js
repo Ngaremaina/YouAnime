@@ -2,7 +2,8 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 const AddAnimation = ({addAnimation}) => {
-    const navigate = useNavigate()
+    const navigate = useNavigate()//defining the navigate function
+     //Object that stores changes from user
     const [animation, setAnimation] = useState({
         title:"",
         plot:"",
@@ -13,19 +14,25 @@ const AddAnimation = ({addAnimation}) => {
         directors_id:1,
         genres_id:1
     })
+    // Function that submit form
     const handleSubmit = (event) => {
         event.preventDefault()
+         // Function to add changes to the database
         addAnimation(animation)
+         // navigate back to home page
         navigate('/')
 
     }
+    // Function to handle changes in the form
     const handleChange = (event) => {
         const input = event.target.id
         const value = event.target.value
+          // Add changes to the object
         setAnimation(prev => {return {...prev, [input]:value}})
     }
 
     return (
+         // Form that adds data to the database
         <form onSubmit={handleSubmit} className="formcontainer">
             <h1>Add Animation</h1>
             <label for="title">Animation Title</label>
