@@ -41,8 +41,6 @@ const AddAnimation = ({addAnimation}) => {
                 <option>Movies</option>
                 <option>Series</option>
             </select>
-           
-
             <label for="video_link">YouTube ID</label>
             <input type="text" id="video_link" value={animation.video_link} onChange={handleChange}/>
             <label for="directors_id">Directors ID</label>
