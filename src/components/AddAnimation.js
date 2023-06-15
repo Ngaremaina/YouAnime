@@ -36,8 +36,13 @@ const AddAnimation = ({addAnimation}) => {
             <input type="date" id="year" value={animation.year} onChange={handleChange}/>
             <label for="cover">Animation Cover</label>
             <input type="text" id="cover" value={animation.cover} onChange={handleChange}/>
-            <label for="type">Animation Type</label>
-            <input type="text" id="type" value={animation.type} onChange={handleChange}/>
+            <label for="cover">Animation Type</label>
+            <select id="type" value={animation.type} onChange={handleChange}>
+                <option>Movies</option>
+                <option>Series</option>
+            </select>
+           
+
             <label for="video_link">YouTube ID</label>
             <input type="text" id="video_link" value={animation.video_link} onChange={handleChange}/>
             <label for="directors_id">Directors ID</label>
