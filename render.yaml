@@ -4,8 +4,8 @@ services:
     env: docker
     plan: starter
     dockerfilePath: ./frontend/Dockerfile
-    buildCommand: yarn build
-    startCommand: yarn start
+    buildCommand: npm run build
+    startCommand: npm start
     port: 3000
 
   - type: web
