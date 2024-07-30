@@ -22,7 +22,13 @@ This project consists of a React front-end and a FastAPI back-end. Both services
 
     ```powershell
     python -m venv env
+
+    # for windows
     .\env\Scripts\activate
+
+    # for ubuntu
+    source env/bin/activate
+    
     ```
 
 2. Install the required dependencies:
