@@ -2,6 +2,9 @@
 
 This project consists of a React front-end and a FastAPI back-end. Both services are containerized using Docker and can be deployed using Docker Compose.
 
+# Demo
+![home](./media/anime.gif)
+
 ## Prerequisites
 
 - Docker
