@@ -1,0 +1,18 @@
+services:
+  - type: web
+    name: react-frontend
+    env: docker
+    plan: starter
+    dockerfilePath: ./frontend/Dockerfile
+    buildCommand: yarn build
+    startCommand: yarn start
+    port: 3000
+
+  - type: web
+    name: fastapi-backend
+    env: docker
+    plan: starter
+    dockerfilePath: ./backend/Dockerfile
+    buildCommand: pip install --no-cache-dir -r requirements.txt
+    startCommand: uvicorn app.main:app --host 0.0.0.0 --port 8000
+    port: 8000
