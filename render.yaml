@@ -3,7 +3,7 @@ services:
     name: react-frontend
     env: docker
     plan: starter
-    dockerfilePath: ./Docker-FastApi/frontend/Dockerfile
+    dockerfilePath: ./frontend/Dockerfile
     buildCommand: npm run build
     startCommand: npm start
     port: 3000
@@ -12,7 +12,7 @@ services:
     name: fastapi-backend
     env: docker
     plan: starter
-    dockerfilePath: ./Docker-FastApi/backend/Dockerfile
+    dockerfilePath: ./backend/Dockerfile
     buildCommand: pip install -r requirements.txt
     startCommand: uvicorn app.main:app --host 0.0.0.0 --port 8000
     port: 8000
