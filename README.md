@@ -1,5 +1,7 @@
 # YouAnime
 
+YouAnime is a vibrant and user-friendly we application designed to bring the magic of animated entertainment to your fingertips. Whether you're a fan of classic cartoons or the latest animated series, YouAnime offers a diverse library that caters to all age groups and preferences. 
+
 This project consists of a React front-end and a FastAPI back-end. Both services are containerized using Docker and can be deployed using Docker Compose.
 
 # Demo
