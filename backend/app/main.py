@@ -11,8 +11,7 @@ from fastapi.middleware.cors import CORSMiddleware
 origins = [
     "http://localhost",
     "http://localhost:3000",
-    "https://app.netlify.com/",
-    "https://you-anime.vercel.app/"
+    "https://you-anime.vercel.app"
 ]
 app.add_middleware(
     CORSMiddleware,
