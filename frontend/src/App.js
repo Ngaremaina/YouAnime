@@ -11,6 +11,7 @@ import SignUp from './components/CustomerSignUp';
 import Series from './components/Series';
 import Movies from './components/Movies';
 import { CirclesWithBar } from "react-loader-spinner"
+import { Analytics } from "@vercel/analytics/react"
 
 function App() {
   const [animations, setAnimations] = useState([])
@@ -118,6 +119,7 @@ function App() {
     ) : (
       <>
         <NavHeader sortByTitle={sortByTitle} />
+        <Analytics/>
         <Routes>
           <Route path='/' element={<AnimationList animations={animations} searchAnimation={searchAnimation} />} />
           <Route path='/:id' element={<DetailsPage deleteAnimation={deleteAnimation} />} />
