@@ -13,20 +13,20 @@ const DetailsPage = ({deleteAnimation}) => {
     console.log(id)
     //Fetch details about a particular item
     useEffect(() => {
-        fetch(`https://youanime.onrender.com/${id}`)
+        fetch(`https://youanime-aas1.onrender.com/${id}`)
         .then(res => res.json())
         .then(data => setAnimations(data))
         
       }, [id])
       //fetch details about the directors
       useEffect(() => {
-        fetch(`https://youanime.onrender.com/getdirectors/`)
+        fetch(`https://youanime-aas1.onrender.com/getdirectors/`)
         .then(res => res.json())
         .then(data => setDirectors(data))    
       }, [])
       //fetch all the genres
       useEffect(() => {
-        fetch(`https://youanime.onrender.com/getgenres/`)
+        fetch(`https://youanime-aas1.onrender.com//getgenres/`)
         .then(res => res.json())
         .then(data => setGenres(data))    
       }, [])
