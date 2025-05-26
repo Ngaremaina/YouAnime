@@ -26,7 +26,7 @@ const DetailsPage = ({deleteAnimation}) => {
       }, [])
       //fetch all the genres
       useEffect(() => {
-        fetch(`https://youanime-aas1.onrender.com//getgenres/`)
+        fetch(`https://youanime-aas1.onrender.com/getgenres/`)
         .then(res => res.json())
         .then(data => setGenres(data))    
       }, [])
