@@ -12,7 +12,7 @@ origins = [
     "http://localhost",
     "http://localhost:3000",
     "https://app.netlify.com/",
-    "https://youanime.netlify.app",
+    "https://you-anime.vercel.app/"
 ]
 app.add_middleware(
     CORSMiddleware,

@@ -101,7 +101,7 @@ function App() {
   
   return (
     //Display the routes to the components
-    <div className="App">
+    <>
     {loading ? (
       <CirclesWithBar
         height="100"
@@ -112,7 +112,7 @@ function App() {
         barColor="#4fa94d"
         ariaLabel="circles-with-bar-loading"
         wrapperStyle={{}}
-        wrapperClass="flex justify-center h-screen items-center"
+        wrapperClass="loader"
         visible={true}
       />
     ) : (
@@ -130,7 +130,7 @@ function App() {
         </Routes>
       </>
     )}
-  </div>
+  </>
 
   );
 }
