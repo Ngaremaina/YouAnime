@@ -1,9 +1,9 @@
-# fly.toml app configuration file generated for youanime-hw9t7q on 2025-06-03T08:36:26Z
+# fly.toml app configuration file generated for youanime on 2025-06-03T08:50:57Z
 #
 # See https://fly.io/docs/reference/configuration/ for information about how to use this file.
 #
 
-app = 'youanime-hw9t7q'
+app = 'youanime'
 primary_region = 'jnb'
 
 [build]
