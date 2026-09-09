@@ -1,18 +1,10 @@
-from sqlalchemy import Column, Integer, String, Table, create_engine, ForeignKey
+from sqlalchemy import Column, Integer, String, create_engine, ForeignKey
 from sqlalchemy.orm import declarative_base, sessionmaker, relationship
 
+from config import settings
 
 Base = declarative_base()
 
-animation_user = Table(
-    'animation_user',
-    Base.metadata,
-    Column('animation_id',Integer, ForeignKey('animations.id'), primary_key=True),
-    Column('directors_id',Integer, ForeignKey('directors.id'), primary_key=True),
-    Column('genres_id',Integer, ForeignKey('genres.id'), primary_key=True),
-    extend_existing=True,
-
-)
 
 class Animations(Base):
     __tablename__ = 'animations'
@@ -26,11 +18,12 @@ class Animations(Base):
     directors_id = Column(Integer, ForeignKey('directors.id'))
     genres_id = Column(Integer, ForeignKey('genres.id'))
 
-    directors = relationship('Directors', secondary=animation_user, back_populates='animations')
-    genres = relationship('Genres', secondary=animation_user, back_populates='animations')
+    director = relationship('Directors', back_populates='animations')
+    genre = relationship('Genres', back_populates='animations')
 
     def __repr__(self):
-        return f"{self.id}, {self.title}" 
+        return f"{self.id}, {self.title}"
+
 
 class Directors(Base):
     __tablename__ = 'directors'
@@ -41,11 +34,13 @@ class Directors(Base):
     phone_number = Column(String(), nullable=False)
     gender = Column(String(), nullable=False)
     age = Column(Integer, nullable=False)
+    password = Column(String(), nullable=False)
 
-    animations = relationship('Animations', secondary=animation_user, back_populates='directors')
+    animations = relationship('Animations', back_populates='director')
 
     def __repr__(self):
         return f"{self.id}, {self.first_name, self.last_name}"
+
 
 class Customers(Base):
     __tablename__ = 'customers'
@@ -58,20 +53,25 @@ class Customers(Base):
     age = Column(Integer, nullable=False)
     password = Column(String(), nullable=False)
 
-    
+
 class Genres(Base):
     __tablename__ = 'genres'
     id = Column(Integer, primary_key=True, autoincrement=True)
     name = Column(String(), nullable=False)
 
-    animations = relationship('Animations', secondary=animation_user, back_populates='genres')
+    animations = relationship('Animations', back_populates='genre')
 
     def __repr__(self):
         return f"{self.name}"
-    
 
-engine = create_engine('sqlite:///main.db', connect_args={"check_same_thread":False})
-Base.metadata.create_all(engine)
-Session = sessionmaker(bind=engine)
-session = Session()
 
+engine = create_engine(settings.database_url, pool_pre_ping=True)
+SessionLocal = sessionmaker(bind=engine, autoflush=False, autocommit=False)
+
+
+def get_db():
+    db = SessionLocal()
+    try:
+        yield db
+    finally:
+        db.close()
