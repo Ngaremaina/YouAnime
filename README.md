@@ -68,11 +68,6 @@ Both suites run automatically on every push/PR to `main` via GitHub Actions
 Dependabot (`.github/dependabot.yml`) keeps npm, pip, and GitHub Actions
 dependencies up to date weekly.
 
-## Project plan
-
-See [`WORKPLAN.md`](./WORKPLAN.md) for the phased plan this codebase was
-upgraded against (Neon migration, auth, testing, CI/CD).
-
 ## License
 
 This project is licensed under the Apache License. See the [LICENSE](LICENSE) file for more information.
