@@ -1,16 +1,27 @@
-FROM node:latest
-
+FROM node:22-slim AS deps
 WORKDIR /app
+COPY package.json package-lock.json ./
+RUN npm ci
 
-COPY package.json ./
-COPY package-lock.json ./
-
-RUN npm install
-
-COPY . ./
-
+FROM node:22-slim AS builder
+WORKDIR /app
+COPY --from=deps /app/node_modules ./node_modules
+COPY . .
+# Baked in at build time — safe to be public (prefixed NEXT_PUBLIC_).
+ARG NEXT_PUBLIC_API_URL
+ENV NEXT_PUBLIC_API_URL=$NEXT_PUBLIC_API_URL
 RUN npm run build
 
-EXPOSE 3000
+FROM node:22-slim AS runner
+WORKDIR /app
+ENV NODE_ENV=production
+RUN addgroup --system --gid 1001 nodejs && adduser --system --uid 1001 nextjs
 
-CMD ["npm", "start"]
+COPY --from=builder /app/public ./public
+COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
+COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
+
+USER nextjs
+EXPOSE 3000
+ENV PORT=3000
+CMD ["node", "server.js"]
