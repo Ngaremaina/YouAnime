@@ -1,3 +1,4 @@
+import logging
 from typing import Optional
 
 from fastapi import Depends, FastAPI, HTTPException
@@ -15,6 +16,8 @@ from auth import (
 from config import settings
 from model import Animations, Customers, Directors, Genres, get_db
 
+logger = logging.getLogger("uvicorn.error")
+
 app = FastAPI()
 
 app.add_middleware(
@@ -24,6 +27,17 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+
+@app.on_event("startup")
+def log_cors_origins() -> None:
+    logger.info("CORS allow_origins=%s", settings.cors_origins_list)
+    if settings.cors_origins_list == ["http://localhost:3000"]:
+        logger.warning(
+            "CORS_ORIGINS is using its default value (only localhost:3000 is "
+            "allowed). If this is deployed, set the CORS_ORIGINS env var "
+            "(comma-separated, no trailing slashes) to your frontend's origin."
+        )
 
 
 class AnimationSchema(BaseModel):
