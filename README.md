@@ -1,85 +1,77 @@
 # YouAnime
 
-YouAnime is a vibrant and user-friendly we application designed to bring the magic of animated entertainment to your fingertips. Whether you're a fan of classic cartoons or the latest animated series, YouAnime offers a diverse library that caters to all age groups and preferences. 
+YouAnime is a vibrant and user-friendly web application designed to bring the magic of animated entertainment to your fingertips. Whether you're a fan of classic cartoons or the latest animated series, YouAnime offers a diverse library that caters to all age groups and preferences.
 
-This project consists of a React front-end and a FastAPI back-end. Both services are containerized using Docker and can be deployed using Docker Compose.
+This project consists of a Next.js (App Router + Tailwind CSS) frontend and a FastAPI backend backed by Neon Postgres. Both services are containerized with Docker and can be run together with Docker Compose.
 
 # Demo
 ![home](./frontend/media/anime.gif)
 
 ## Prerequisites
 
-- Docker
-- Docker Compose
-- Python (for FastAPI)
-- Node.js and Yarn or npm (for React)
+- Node.js 22+ and npm (for the frontend)
+- Python 3.12+ (for the backend)
+- A [Neon](https://neon.tech) Postgres project (or any Postgres instance) for the database
+- Docker and Docker Compose (optional, for containerized runs)
 
-## Setting Up the Project
+## Setting up the backend (FastAPI + Neon)
 
-### Backend: FastAPI
+```sh
+cd backend
+python -m venv .venv
+source .venv/bin/activate   # .venv\Scripts\activate on Windows
+pip install -r requirements.txt
 
-1. Create and activate a virtual environment:
+cp .env.example .env        # then fill in DATABASE_URL, JWT_SECRET, etc.
+alembic upgrade head        # applies migrations to your Neon database
+pytest                      # runs the backend test suite (isolated, no DB needed)
 
-    ```powershell
-    python -m venv env
+uvicorn main:app --reload --app-dir app
+```
 
-    # for windows
-    .\env\Scripts\activate
+`backend/.env` needs, at minimum:
+- `DATABASE_URL` — your Neon connection string (`postgresql+psycopg://...`)
+- `JWT_SECRET` — a random secret for signing login tokens (`python -c "import secrets; print(secrets.token_hex(32))"`)
 
-    # for ubuntu
-    source env/bin/activate
-    
-    ```
+The API is available at `http://localhost:8000` (interactive docs at `/docs`).
 
-2. Install the required dependencies:
+## Setting up the frontend (Next.js)
 
-    ```sh
-    pip install -r requirements.txt
-    ```
+```sh
+cd frontend
+npm install
+cp .env.example .env.local   # then set NEXT_PUBLIC_API_URL if the backend isn't on localhost:8000
+npm run dev
+```
 
-3. Run the FastAPI application:
-
-    ```sh
-    uvicorn app.main:app 
-    ```
-
-### Frontend: React
-
-1. Navigate to the `frontend` directory:
-
-    ```sh
-    cd frontend
-    ```
-
-2. Install the dependencies:
-
-    ```sh
-    yarn install
-    # or
-    npm install
-    ```
-
-3. Start the React application:
-
-    ```sh
-    yarn start
-    # or
-    npm start
-    ```
+The app is available at `http://localhost:3000`. See `frontend/README.md` for
+architecture notes on how auth and API calls are wired up.
 
 ## Running with Docker
 
-1. Ensure Docker and Docker Compose are installed on your system.
+```sh
+docker-compose up --build
+```
 
-2. Navigate to the project root directory.
+This builds and runs both services. The backend still needs `backend/.env`
+populated (Docker Compose loads it via `env_file`); the frontend reads
+`NEXT_PUBLIC_API_URL` from your shell environment (or a root-level `.env`
+file), defaulting to `http://localhost:8000`.
 
-3. Build and run the Docker containers:
+## Tests and CI
 
-    ```sh
-    docker-compose up --build
-    ```
+- Backend: `cd backend && pytest` (pytest + httpx, in-memory SQLite, no external DB needed)
+- Frontend: `cd frontend && npm test` (Jest + React Testing Library)
 
-The FastAPI backend will be accessible at `http://localhost:8000` and the React frontend at `http://localhost:3000`.
+Both suites run automatically on every push/PR to `main` via GitHub Actions
+(`.github/workflows/python-app.yml`, `.github/workflows/node.js.yml`).
+Dependabot (`.github/dependabot.yml`) keeps npm, pip, and GitHub Actions
+dependencies up to date weekly.
+
+## Project plan
+
+See [`WORKPLAN.md`](./WORKPLAN.md) for the phased plan this codebase was
+upgraded against (Neon migration, auth, testing, CI/CD).
 
 ## License
 
@@ -88,5 +80,6 @@ This project is licensed under the Apache License. See the [LICENSE](LICENSE) fi
 ## Acknowledgements
 
 - [FastAPI](https://fastapi.tiangolo.com/)
-- [React](https://reactjs.org/)
+- [Next.js](https://nextjs.org/)
+- [Neon](https://neon.tech/)
 - [Docker](https://www.docker.com/)
