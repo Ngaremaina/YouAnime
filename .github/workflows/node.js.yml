@@ -21,7 +21,7 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [22.x]
+        node-version: [26.x]
 
     env:
       NEXT_PUBLIC_API_URL: http://localhost:8000
