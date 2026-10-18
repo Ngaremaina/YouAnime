@@ -5,7 +5,7 @@ WORKDIR /app
 RUN apk update && \
     apk add --no-cache g++ gcc musl-dev
 
-COPY requirements.txt .
+COPY app/requirements.txt .
 RUN pip install --upgrade pip
 RUN pip install -r requirements.txt
 

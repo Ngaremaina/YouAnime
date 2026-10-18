@@ -20,7 +20,7 @@ This project consists of a Next.js (App Router + Tailwind CSS) frontend and a Fa
 cd backend
 python -m venv .venv
 source .venv/bin/activate   # .venv\Scripts\activate on Windows
-pip install -r requirements.txt
+pip install -r app/requirements.txt
 
 cp .env.example .env        # then fill in DATABASE_URL, JWT_SECRET, etc.
 alembic upgrade head        # applies migrations to your Neon database

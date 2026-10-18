@@ -1,6 +1,11 @@
 import type { Animation, Director, Genre } from "./types";
 
-export const API_URL = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:8000";
+// On the server, prefer the Vercel Services binding (an absolute, internal URL);
+// in the browser, NEXT_PUBLIC_API_URL may be a relative path like "/backend".
+export const API_URL =
+  (typeof window === "undefined" && process.env.BACKEND_INTERNAL_URL) ||
+  process.env.NEXT_PUBLIC_API_URL ||
+  "http://localhost:8000";
 
 export class ApiRequestError extends Error {
   status: number;
