@@ -27,7 +27,7 @@
     "@types/react-dom": "^19",
     "@typescript/native": "npm:typescript@^7.0.2",
     "eslint": "^10",
-    "eslint-config-next": "16.4.1",
+    "eslint-config-next": "16.4.2",
     "jest": "^30.5.1",
     "jest-environment-jsdom": "^30.5.1",
     "tailwindcss": "^4",
